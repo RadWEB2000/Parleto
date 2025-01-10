@@ -1,3 +1,5 @@
+//  Link do dokumentacji w repozytorium Github: https://github.com/RadWEB2000/Parleto
+
 const expenses = {
   "2023-01": {
     "01": {
