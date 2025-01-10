@@ -1,5 +1,89 @@
-//  Link do dokumentacji w repozytorium Github: https://github.com/RadWEB2000/Parleto
+// Repozytorium Github: https://github.com/RadWEB2000/Parleto
 
+// Niezoptymalizowane rozwiązanie
+function solution1(expenses) {
+  const allExpenses = [];
+
+  for (const month in expenses) {
+    const days = expenses[month];
+
+    // Dodajemy wydatki tylko z pierwszej niedzieli i jej tygodnia
+    for (const day in days) {
+      if (["01", "02", "03"].includes(day)) {
+        for (const category in days[day]) {
+          allExpenses.push(...days[day][category]);
+        }
+      }
+    }
+  }
+
+  if (allExpenses.length === 0) {
+    return null;
+  }
+
+  allExpenses.sort((a, b) => a - b);
+
+  const mid = Math.floor(allExpenses.length / 2);
+  return allExpenses.length % 2 !== 0
+    ? allExpenses[mid]
+    : (allExpenses[mid - 1] + allExpenses[mid]) / 2;
+}
+
+// Zoptymalizowane rozwiązanie z użyciem Quick Select
+/**
+ * Quick Select: Umożliwia efektywne wyznaczenie mediany, unika pełnego sortowania.
+ * Zalety:
+ * - Średnia złożoność O(n) (choć w najgorszym przypadku O(n^2)).
+ * - Lepsza wydajność przy dużych zbiorach danych niż pełne sortowanie.
+ * Wady:
+ * - Trudniejsza implementacja.
+ */
+function solution2(expenses) {
+  const allExpenses = [];
+
+  for (const month in expenses) {
+    const days = expenses[month];
+
+    for (const day in days) {
+      if (["01", "02", "03"].includes(day)) {
+        for (const category in days[day]) {
+          allExpenses.push(...days[day][category]);
+        }
+      }
+    }
+  }
+
+  if (allExpenses.length === 0) {
+    return null;
+  }
+
+  function quickSelect(arr, k) {
+    const pivot = arr[Math.floor(Math.random() * arr.length)];
+    const left = arr.filter((x) => x < pivot);
+    const right = arr.filter((x) => x > pivot);
+    const pivotCount = arr.length - left.length - right.length;
+
+    if (k < left.length) {
+      return quickSelect(left, k);
+    } else if (k < left.length + pivotCount) {
+      return pivot;
+    } else {
+      return quickSelect(right, k - left.length - pivotCount);
+    }
+  }
+
+  const mid = Math.floor(allExpenses.length / 2);
+
+  if (allExpenses.length % 2 !== 0) {
+    return quickSelect(allExpenses, mid);
+  } else {
+    const left = quickSelect(allExpenses, mid - 1);
+    const right = quickSelect(allExpenses, mid);
+    return (left + right) / 2;
+  }
+}
+
+// Testowe dane
 const expenses = {
   "2023-01": {
     "01": {
@@ -23,85 +107,5 @@ const expenses = {
   "2023-04": {},
 };
 
-function findFirstSunday(month) {
-  const [year, monthDay] = month.split("-").map(Number);
-  for (let day = 1; day <= 7; day++) {
-    const date = new Date(year, monthDay - 1, day);
-    if (date.getDay() === 0) {
-      return day;
-    }
-  }
-  return null;
-}
-
-function calculateMediana(array) {
-  const sorted = array.slice().sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-
-  return sorted.length % 2 === 0
-    ? (sorted[mid - 1] + sorted[mid]) / 2
-    : sorted[mid];
-}
-
-function quickSelect(arr, k) {
-  if (arr.length === 1) return arr[0];
-  const pivot = arr[Math.floor(Math.random() * arr.length)];
-  const lows = arr.filter((el) => el < pivot);
-  const highs = arr.filter((el) => el > pivot);
-  const pivots = arr.filter((el) => el === pivot);
-
-  if (k < lows.length) {
-    return quickSelect(lows, k);
-  } else if (k < lows.length + pivots.length) {
-    return pivots[0];
-  } else {
-    return quickSelect(highs, k - lows.length - pivots.length);
-  }
-}
-
-function quickSelectMedian(arr) {
-  const len = arr.length;
-  const mid = Math.floor(len / 2);
-  if (len % 2 === 0) {
-    return (quickSelect(arr, mid - 1) + quickSelect(arr, mid)) / 2;
-  } else {
-    return quickSelect(arr, mid);
-  }
-}
-
-function aggregateExpanses(expanses) {
-  const allExpanses = [];
-  for (const month in expanses) {
-    const days = expanses[month];
-    const firstSunday = findFirstSunday(month);
-    for (const day in days) {
-      if (parseInt(day) >= firstSunday) {
-        for (const category in days[day]) {
-          allExpanses.push(...days[day][category]);
-        }
-      }
-    }
-  }
-  return allExpanses;
-}
-
-function solution1(expenses) {
-  const allExpenses = aggregateExpanses(expenses);
-  if (allExpenses.length === 0) return null;
-  return calculateMediana(allExpenses);
-}
-
-function solution2(expenses) {
-  const allExpenses = aggregateExpanses(expenses);
-  if (allExpenses.length === 0) return null;
-  return quickSelectMedian(allExpenses);
-}
-
-const result1 = solution1(expenses);
-const result2 = solution2(expenses);
-
-console.log(`Solution1: ${result1} | Solution2: ${result2}`);
-
-const resultField = (document.querySelector(
-  "#result-field"
-).textContent = `${result2}`);
+console.log(solution1(expenses)); // Niezoptymalizowane: 20,5
+console.log(solution2(expenses)); // Zoptymalizowane: 20,5

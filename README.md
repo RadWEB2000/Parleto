@@ -49,7 +49,7 @@ Funkcja `aggregateExpanses(expenses)` gromadzi wszystkie wydatki począwszy od p
 
 ## Wyniki
 
-Mediana obliczona z użyciem obu funkcji `solution1()` oraz `solution2()` wynosi **19.5**.
+Mediana obliczona z użyciem obu funkcji `solution1()` oraz `solution2()` wynosi **20.5**.
 
 ---
 
@@ -104,4 +104,4 @@ The `aggregateExpanses(expenses)` function collects all expenses starting from t
 
 ## Results
 
-The median calculated using both `solution1()` and `solution2()` functions is **19.5**.
+The median calculated using both `solution1()` and `solution2()` functions is **20.5**.
