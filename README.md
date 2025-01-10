@@ -1,107 +1,187 @@
-# Dokumentacja zadania rekrutacyjnego - PL
+# Median Expenses Calculator
 
-Ten projekt oblicza medianę wydatków od pierwszej niedzieli każdego miesiąca na podstawie dostarczonych danych wejściowych. Dwa różne rozwiązania implementują algorytmy o różnej złożoności:
+## Opis projektu
+Ten projekt zawiera implementację funkcji w JavaScript do obliczania mediany wydatków do pierwszej niedzieli włącznie dla każdego miesiąca, na podstawie danych wejściowych o strukturze podobnej do JSON. Kod zawiera dwie wersje rozwiązania:
 
-- **Solution1:** Pierwsze rozwiązanie wykorzystuje standardowe sortowanie do obliczenia mediany.
-- **Solution2:** Drugie rozwiązanie wykorzystuje algorytm `quickSelect()` co pozwala na szybsze obliczenia przy dużych zbiorach danych.
-
-## Dane wejściowe
-
-Struktura danych wejściowych
-
-```javascript
-    "YYYY-MM": {
-        "DD":{
-            "category":[kwoty wydatków]
-        }
-    }
-```
-
-- `YYYY-MM` - Rok i miesiąc
-- `DD` - Dzień miesiąca
-- `category` - Kategorie wydatków np. `food` i `fuel`.
-
-## Funkcjonalności
-
-### Znalezienie pierwszej niedzieli miesiąca
-
-Funkcja `findFirstSunday(month)` znajduje pierwszy dzień miesiąca, który przypada na niedzielę.
-
-### Agregacja wydatków
-
-Funkcja `aggregateExpanses(expenses)` gromadzi wszystkie wydatki począwszy od pierwszej niedzieli każdego miesiąca.
-
-### Obliczenie mediany
-
-- **Solution1:** Używa pełnego sortowania i funkcji `calculateMediana()`,
-- **Solution2:** Używa algorytmu `quickSelect()` z funkcją `quickSelectMedian()`
-
-## Jak uruchomić?
-
-1. Umieść plik script.js w tym samym katalogu co plik HTML.
-2. Dodaj następujący element `<script>` w pliku HTML:
-
-```html
-<script src="script.js" defer></script>
-```
-
-3. Otwórz plik HTML w przeglądarce i sprawdź konsolę, aby sprawdzić wyniki
-
-## Wyniki
-
-Mediana obliczona z użyciem obu funkcji `solution1()` oraz `solution2()` wynosi **20.5**.
+- **Solution 1:** Niezoptymalizowana metoda, używająca sortowania i tradycyjnego obliczania mediany.
+- **Solution 2:** Zoptymalizowana metoda wykorzystująca algorytm Quick Select.
 
 ---
 
-# Recruitment Task Documentation - EN
+## Funkcjonalności
 
-This project calculates the median of expenses starting from the first Sunday of each month based on the provided input data. Two different solutions implement algorithms with varying complexity:
+1. **Obliczanie dat do pierwszej niedzieli włącznie:**
+   - Wyznaczanie wszystkich dni od 1. dnia miesiąca do pierwszej niedzieli włącznie.
+   - Funkcja dynamicznie generuje listę dat na podstawie roku i miesiąca.
 
-- **Solution1:** The first solution uses standard sorting to calculate the median.
-- **Solution2:** The second solution uses the `quickSelect()` algorithm, allowing faster calculations for large datasets.
+2. **Zbieranie wydatków:**
+   - Dane o wydatkach są odczytywane dla odpowiednich dni z podanej struktury danych.
 
-## Input Data
+3. **Obliczanie mediany:**
+   - **Solution 1:** Sortuje dane i oblicza medianę w sposób tradycyjny.
+   - **Solution 2:** Wykorzystuje algorytm Quick Select dla bardziej efektywnego obliczania mediany.
 
-Input data structure:
+---
 
-```javascript
-"YYYY-MM": {
-    "DD":{
-        "category":[amounts of expenses]
-    }
+## Struktura danych wejściowych
+Dane wejściowe muszą mieć poniższą strukturę:
+
+```json
+{
+    "YYYY-MM": {
+        "DD": {
+            "category": [ wartości... ]
+        },
+        ...
+    },
+    ...
 }
 ```
 
-- `YYYY-MM` - Year and month
-- `DD` - Day of the month
-- `category` - Expense categories, e.g., `food` and `fuel`.
+### Przykład danych wejściowych:
 
-## Functionalities
-
-### Finding the First Sunday of the Month
-
-The `findFirstSunday(month)` function finds the first day of the month that falls on a Sunday.
-
-### Expense Aggregation
-
-The `aggregateExpanses(expenses)` function collects all expenses starting from the first Sunday of each month.
-
-### Median Calculation
-
-- **Solution1:** Uses full sorting and the `calculateMediana()` function.
-- **Solution2:** Uses the `quickSelect()` algorithm with the `quickSelectMedian()` function.
-
-## How to Run?
-
-1. Place the `script.js` file in the same directory as the HTML file.
-2. Add the following `<script>` element to the HTML file:
-
-```html
-<script src="script.js" defer></script>
+```json
+{
+    "2023-01": {
+        "01": {
+            "food": [22.11, 43, 11.72, 2.2, 36.29, 2.5, 19],
+            "fuel": [210.22]
+        },
+        "09": {
+            "food": [11.9],
+            "fuel": [190.22]
+        }
+    },
+    "2023-03": {
+        "07": {
+            "food": [20, 11.9, 30.20, 11.9]
+        },
+        "04": {
+            "food": [10.20, 11.50, 2.5],
+            "fuel": []
+        }
+    },
+    "2023-04": {}
+}
 ```
 
-3. Open the HTML file in a browser and check the console to view the results.
+---
 
-## Results
+## Funkcje
 
-The median calculated using both `solution1()` and `solution2()` functions is **20.5**.
+### 1. `getDaysToFirstSunday(year, month)`
+
+Wyznacza dni od 1. do pierwszej niedzieli włącznie.
+
+**Parametry:**
+- `year` *(number)*: Rok.
+- `month` *(number)*: Miesiąc (1-12).
+
+**Zwraca:**
+- Tablica dni *(array of numbers)*.
+
+---
+
+### 2. `solution1(expenses)`
+
+Implementacja niezoptymalizowana.
+
+**Opis:**
+- Pobiera wydatki dla dni do pierwszej niedzieli każdego miesiąca.
+- Sortuje wydatki i oblicza medianę.
+
+**Parametry:**
+- `expenses` *(object)*: Dane wejściowe o wydatkach.
+
+**Zwraca:**
+- Mediana wydatków *(number)* lub `null` jeśli brak danych.
+
+---
+
+### 3. `solution2(expenses)`
+
+Implementacja zoptymalizowana z użyciem algorytmu Quick Select.
+
+**Opis:**
+- Pobiera wydatki dla dni do pierwszej niedzieli każdego miesiąca.
+- Wykorzystuje Quick Select do efektywnego obliczenia mediany.
+
+**Parametry:**
+- `expenses` *(object)*: Dane wejściowe o wydatkach.
+
+**Zwraca:**
+- Mediana wydatków *(number)* lub `null` jeśli brak danych.
+
+---
+
+## Instrukcja użycia
+
+1. Skopiuj kod z pliku `medianExpenses.js`.
+2. Zaimportuj funkcje do swojego projektu.
+3. Użyj funkcji z danymi wejściowymi o odpowiedniej strukturze.
+
+### Przykład:
+
+```javascript
+const expenses = {
+    "2023-01": {
+        "01": {
+            "food": [22.11, 43, 11.72, 2.2, 36.29, 2.5, 19],
+            "fuel": [210.22]
+        },
+        "09": {
+            "food": [11.9],
+            "fuel": [190.22]
+        }
+    },
+    "2023-03": {
+        "07": {
+            "food": [20, 11.9, 30.20, 11.9]
+        },
+        "04": {
+            "food": [10.20, 11.50, 2.5],
+            "fuel": []
+        }
+    },
+    "2023-04": {}
+};
+
+console.log("Solution 1:", solution1(expenses)); // Wynik: 11.72
+console.log("Solution 2:", solution2(expenses)); // Wynik: 11.72
+```
+
+---
+
+## Testy
+
+### Dane testowe:
+
+```javascript
+const expenses = {
+    "2023-01": {
+        "01": {
+            "food": [22.11, 43, 11.72, 2.2, 36.29, 2.5, 19],
+            "fuel": [210.22]
+        },
+        "09": {
+            "food": [11.9],
+            "fuel": [190.22]
+        }
+    },
+    "2023-03": {
+        "07": {
+            "food": [20, 11.9, 30.20, 11.9]
+        },
+        "04": {
+            "food": [10.20, 11.50, 2.5],
+            "fuel": []
+        }
+    },
+    "2023-04": {}
+};
+
+console.log("Solution 1 (Niezoptymalizowana):", solution1(expenses)); // Wynik: 11.72
+console.log("Solution 2 (Zoptymalizowana):", solution2(expenses));   // Wynik: 11.72
+```
+
+
