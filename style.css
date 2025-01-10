@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  color: #141414;
+  background-color: #f6f6f6;
+  font-size: 1.6rem;
+}
+
+.container {
+  font-size: 0.9em;
+  padding: 1rem 2rem;
+  border-radius: 1em;
+  box-shadow: 0 0 1em 0.5em rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  margin: 7rem auto;
+  width: clamp(5rem, 80rem, 85dvw);
+}
+
+.container > * {
+  margin: 1rem 0;
+}
+
+li {
+  list-style-position: inside;
+}
+
+li > ul {
+  margin-left: 3rem;
+  margin-top: 1rem;
+}
+
+pre {
+  border-radius: 2em;
+  background-color: #f6f6f6;
+
+  padding: 4rem;
+  font-style: italic;
+}

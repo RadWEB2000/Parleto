@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parleto - Zadanie rekrutacyjne</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Zadanie rekrutacyjne</h1>
+      <strong
+        >Wyznacz medianę wydatków od pierwszej niedzieli (włącznie) każdego
+        miesiąca (np. dla 2023-09 i 2023-10 są to dni 1,2,3 wrz i 1
+        paź).</strong
+      >
+      <p>Rozwiązanie należy podzielić na dwie funkcje</p>
+      <ul>
+        <li>
+          <b>solution1</b>
+          <p>rozwiązanie niezoptymalizowane (tzw. pierwsza wersja)</p>
+        </li>
+        <li>
+          <b>solution2</b>
+          <p>rozwiązanie zoptymalizowane z użyciem jednej z metod</p>
+          <ul>
+            <li>kolejki priorytetowej (priority queues)</li>
+            <li>szybkiego partycjonowania (quick select)</li>
+            <li>szybkiego sortowania (quick sort)</li>
+            <li>innej</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        W komentarzu funkcji <b>solution2</b> należy umieścić słowne
+        uzasadnienie obranej metodologii (jej wady i zalety). <br />Należy
+        zastosować rozwiązanie zgodnie z poniższym pseudokodem.
+      </p>
+      <pre>
+        <code>
+expenses = {
+    "2023-01": {
+        "01": {
+            "food": [ 22.11, 43, 11.72, 2.2, 36.29, 2.5, 19 ],
+            "fuel": [ 210.22 ]
+        },
+        "09": {
+            "food": [ 11.9 ],
+            "fuel": [ 190.22 ]
+        }
+    },
+    "2023-03": {
+        "07": {
+            "food": [ 20, 11.9, 30.20, 11.9 ]
+        },
+        "04": {
+            "food": [ 10.20, 11.50, 2.5 ],
+            "fuel": []
+        }
+    },
+    "2023-04": {}
+};
+
+func solution1(expenses) {
+    result = null;
+    // ...
+    return result;
+}
+func solution2(expenses) {
+    result = null;
+    // ...
+    return result;
+}
+        </code>
+    </pre>
+      <strong>Uwagi</strong>
+      <ol>
+        <li>
+          Należy użyć tylko funkcji/modułów ze standardowej biblioteki (np.
+          math).
+        </li>
+        <li>Dane są znormalizowane.</li>
+        <li>
+          Wynik to jedna liczba dla danych spełniających kryteria lub null.
+        </li>
+        <li>
+          Zadanie może zostać wykonane w języku Python (*.py) lub JavaScript
+          (*.js).
+        </li>
+        <li>
+          W pierwszym etapie po przesłaniu pliku z poprawnym wynikiem,
+          uruchomione zostaną testy automatyczne sprawdzające (dla przykładowych
+          danych oraz zestawów z milionem wydatków):
+          <ul>
+            <li>poprawne wyniki dla różnych przypadków</li>
+            <li>zużycie procesora</li>
+            <li>zużycie pamięci</li>
+          </ul>
+        </li>
+        <li>Przesłany plik jest <b>finalnym rozwiązaniem</b>.</li>
+        <li>
+          Wynik testów automatycznych (dopuszczamy pewną ilość błędów):
+          <ul>
+            <li>
+              negatywny - aplikacja zostanie automatycznie odrzucona bez
+              dodatkowych informacji zwrotnych (ponowna aplikacja możliwa jest
+              po 90 dniach)
+            </li>
+            <li>
+              pozytywny - kod zostanie przekierowany do weryfikacji przez
+              programistów
+            </li>
+          </ul>
+        </li>
+        <li>
+          Jest to pierwszy etap rekrutacji. Po jego pomyślnym zaliczeniu
+          przesłane zostanie <b>drugie zadanie</b> (weryfikujące wiedzę z
+          zakresu budowy aplikacji z użyciem frameworka).
+        </li>
+        <li>
+          Szczegółowy opis procesu rekrutacji znajduje się na naszej stronie
+          www.
+        </li>
+      </ol>
+    </div>
+  </body>
+  <script type="text/javascript" src="index.js"></script>
+</html>
